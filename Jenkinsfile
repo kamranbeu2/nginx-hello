@@ -9,7 +9,7 @@ pipeline {
         stage('Deploy Nginx') {
             steps {
                 container('kubectl') {
-                    sh 'kubectl create -f nginx.yaml'
+                    sh 'kubectl apply -f nginx.yaml'
                     
                 }
             }
