@@ -9,9 +9,8 @@ pipeline {
         stage('Deploy Nginx') {
             steps {
                 container('kubectl') {
-                    sh 'kubectl delete deployments --ignore-not-found=true -n jenkins --selector app=mynginx  --grace-period=10'
-                    sh 'kubectl delete svc --ignore-not-found=true -n jenkins --selector app=mynginx  --grace-period=10'
-                    sh 'kubectl apply -f nginx.yaml'
+                    
+                    sh 'kubectl apply -f k8s/nginx.yaml'
                     
                 }
             }
