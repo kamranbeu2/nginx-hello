@@ -11,7 +11,7 @@ pipeline {
                 container('kubectl') {
                     
                     sh 'kubectl apply -f k8s/nginx.yaml'
-                    sh 'kubectl rollout restart deployment/nginx'
+                    sh 'kubectl rollout restart deployment/mynginx'
                     
                 }
             }
