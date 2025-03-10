@@ -32,11 +32,12 @@ metadata:
   name: mynginx
   namespace: jenkins
 spec:
-  type: LoadBalancer
+  type: NodePort
   ports:
   - port: 80
     protocol: TCP
     targetPort: 80
+    nodePort: 32400
   selector:
     app: mynginx
   sessionAffinity: None
