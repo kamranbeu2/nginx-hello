@@ -12,17 +12,20 @@ spec:
       app: mynginx
   strategy:
     type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
   template:
     metadata:
       labels:
         app: mynginx
     spec:
       containers:
-      - image: kamran420/nginx-test:latest
-        name: nginx-test
-        ports:
-        - containerPort: 80
-        resources: {}
+        - image: kamran420/nginx-test:latest
+          name: nginx-test
+          ports:
+            - containerPort: 80
+          resources: {}
 ---
 apiVersion: v1
 kind: Service
@@ -34,10 +37,10 @@ metadata:
 spec:
   type: NodePort
   ports:
-  - port: 80
-    protocol: TCP
-    targetPort: 80
-    nodePort: 32400
+    - port: 80
+      protocol: TCP
+      targetPort: 80
+      nodePort: 32400
   selector:
     app: mynginx
   sessionAffinity: None
