@@ -5,6 +5,7 @@ pipeline {
             defaultContainer 'kubectl'
         }
     }
+    stages{
         stage('Deploy Nginx') {
             steps {
                 container('kubectl') {
@@ -14,3 +15,4 @@ pipeline {
             }
         }
     }
+}
