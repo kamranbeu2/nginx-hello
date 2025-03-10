@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   namespace: jenkins
-  creationTimestamp: null
   labels:
     app: mynginx
   name: mynginx
@@ -11,40 +10,33 @@ spec:
   selector:
     matchLabels:
       app: mynginx
-  strategy: {}
+  strategy:
+    type: RollingUpdate
   template:
     metadata:
-      creationTimestamp: null
       labels:
         app: mynginx
     spec:
       containers:
       - image: kamran420/nginx-test:latest
         name: nginx-test
+        ports:
+        - containerPort: 80
         resources: {}
-status: {}
 ---
 apiVersion: v1
 kind: Service
 metadata:
   labels:
-    run: mynginx
+    app: mynginx
   name: mynginx
   namespace: jenkins
 spec:
-  allocateLoadBalancerNodePorts: true
-  externalTrafficPolicy: Cluster
-  internalTrafficPolicy: Cluster
-  ipFamilies:
-  - IPv4
-  ipFamilyPolicy: SingleStack
+  type: LoadBalancer
   ports:
-    port: 80
+  - port: 80
     protocol: TCP
     targetPort: 80
   selector:
-    run: mynginx
+    app: mynginx
   sessionAffinity: None
-  type: LoadBalancer
-status:
-  loadBalancer: {}
